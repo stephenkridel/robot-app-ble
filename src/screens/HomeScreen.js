@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {View, Text, SafeAreaView, StyleSheet} from 'react-native';
+import {Text, SafeAreaView, StyleSheet} from 'react-native';
 import {BleManager} from 'react-native-ble-plx';
-import MotorButton from '../components/MotorButton';
+import MotorController from '../components/MotorController';
 
 export default class HomeScreen extends Component {
   constructor() {
@@ -79,22 +79,32 @@ export default class HomeScreen extends Component {
       <SafeAreaView>
         <Text style={styles.DevicesHeader}>Robot Arm Controller App</Text>
         <Text style={styles.ConnectionText}>
-          {this.state.isConnected ? `Device is Connected` : 'Connecting...'}
+          {this.state.isConnected ? 'Device is Connected' : 'Connecting...'}
         </Text>
-        <View style={styles.Controller}>
-          <MotorButton
-            text={'CW'}
-            color={'cornflowerblue'}
-            onPressActuate={() => this.sendData('Qw==\n')} /*Base64 for C*/
-            onPressRelease={() => this.sendData('Uw==\n')} /*Base64 for S*/
-          />
-          <MotorButton
-            text={'CCW'}
-            color={'aquamarine'}
-            onPressActuate={() => this.sendData('Qg==\n')} /*Base64 for B*/
-            onPressRelease={() => this.sendData('Uw==\n')} /*Base64 for S*/
-          />
-        </View>
+        <MotorController
+          text={'Shoulder'}
+          lftbtnText={'CCW'}
+          rgtbtnText={'CW'}
+          onPressActuateCCW={() => this.sendData('Qw==\n')} /*Base64 for C*/
+          onPressActuateCW={() => this.sendData('Qg==\n')} /*Base64 for B*/
+          onPressRelease={() => this.sendData('Uw==\n')} /*Base64 for S*/
+        />
+        <MotorController
+          text={'Elbow'}
+          lftbtnText={'CCW'}
+          rgtbtnText={'CW'}
+          onPressActuateCCW={() => this.sendData('WA==\n')} /*Base64 for Y*/
+          onPressActuateCW={() => this.sendData('WQ==\n')} /*Base64 for X*/
+          onPressRelease={() => this.sendData('Uw==\n')} /*Base64 for S*/
+        />
+        <MotorController
+          text={'Gripper'}
+          lftbtnText={'Open'}
+          rgtbtnText={'Close'}
+          onPressActuateCCW={() => this.sendData('Rw==\n')} /*Base64 for G*/
+          onPressActuateCW={() => this.sendData('Ug==\n')} /*Base64 for R*/
+          onPressRelease={() => this.sendData('SQ==\n')} /*Base64 for I*/
+        />
       </SafeAreaView>
     );
   }
@@ -106,21 +116,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginHorizontal: 30,
     marginVertical: 30,
+    color: 'black',
   },
   Devices: {
     fontSize: 30,
     marginTop: 20,
     marginLeft: 20,
   },
-  Controller: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   ConnectionText: {
     width: '100%',
     backgroundColor: 'lightblue',
     fontSize: 20,
     padding: 5,
+    marginBottom: 20,
   },
 });

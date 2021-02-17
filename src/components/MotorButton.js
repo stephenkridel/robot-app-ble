@@ -7,23 +7,22 @@ const MotorButton = (props) => {
       onPressIn={props.onPressActuate}
       onPressOut={props.onPressRelease}
       style={[styles.Button, {backgroundColor: props.color}]}>
-      <Text style={styles.ButtonText}>{props.text}</Text>
+      <Text style={styles.ButtonText}>{props.btnText}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   Button: {
-    height: 75,
-    width: 75,
-    borderRadius: 75,
-    margin: 20,
+    height: 60,
+    width: 60,
+    borderRadius: 60,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   ButtonText: {
-    fontSize: 30,
+    fontSize: 20,
     color: 'black',
   },
 });

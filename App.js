@@ -12,7 +12,7 @@ const App = createStackNavigator(
     initialRouteName: 'Home',
     defaultNavigationOptions: {
       headerShown: false,
-      cardStyle: {backgroundColor: 'white'},
+      cardStyle: {backgroundColor: '#F0F8FF'},
     },
   },
 );
