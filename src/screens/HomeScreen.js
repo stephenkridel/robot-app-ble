@@ -83,24 +83,24 @@ export default class HomeScreen extends Component {
         </Text>
         <MotorController
           text={'Shoulder'}
-          lftbtnText={'CCW'}
-          rgtbtnText={'CW'}
+          lftBtnText={'CCW'}
+          rgtBtnText={'CW'}
           onPressActuateCCW={() => this.sendData('Qw==\n')} /*Base64 for C*/
           onPressActuateCW={() => this.sendData('Qg==\n')} /*Base64 for B*/
           onPressRelease={() => this.sendData('Uw==\n')} /*Base64 for S*/
         />
         <MotorController
           text={'Elbow'}
-          lftbtnText={'CCW'}
-          rgtbtnText={'CW'}
+          lftBtnText={'CCW'}
+          rgtBtnText={'CW'}
           onPressActuateCCW={() => this.sendData('WA==\n')} /*Base64 for Y*/
           onPressActuateCW={() => this.sendData('WQ==\n')} /*Base64 for X*/
           onPressRelease={() => this.sendData('Uw==\n')} /*Base64 for S*/
         />
         <MotorController
           text={'Gripper'}
-          lftbtnText={'Open'}
-          rgtbtnText={'Close'}
+          lftBtnText={'Open'}
+          rgtBtnText={'Close'}
           onPressActuateCCW={() => this.sendData('Rw==\n')} /*Base64 for G*/
           onPressActuateCW={() => this.sendData('Ug==\n')} /*Base64 for R*/
           onPressRelease={() => this.sendData('SQ==\n')} /*Base64 for I*/
