@@ -14,8 +14,8 @@ const MotorButton = (props) => {
 
 const styles = StyleSheet.create({
   Button: {
-    height: 60,
-    width: 60,
+    height: 50,
+    width: 120,
     borderRadius: 60,
     display: 'flex',
     alignItems: 'center',

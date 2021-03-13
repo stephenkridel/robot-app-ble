@@ -10,13 +10,13 @@ const MotorController = (props) => {
         <MotorButton
           color={'cornflowerblue'}
           btnText={props.lftBtnText}
-          onPressActuate={props.onPressActuateCCW}
+          onPressActuate={props.onPressActuateLeft}
           onPressRelease={props.onPressRelease}
         />
         <MotorButton
           color={'aquamarine'}
-          btnText={props.lftBtnText}
-          onPressActuate={props.onPressActuateCW}
+          btnText={props.rgtBtnText}
+          onPressActuate={props.onPressActuateRight}
           onPressRelease={props.onPressRelease}
         />
       </View>
@@ -26,7 +26,7 @@ const MotorController = (props) => {
 
 const styles = StyleSheet.create({
   Header: {
-    fontSize: 30,
+    fontSize: 25,
     textAlign: 'center',
     color: 'black',
   },
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   Controller: {
     marginHorizontal: 10,
     marginBottom: 20,
-    padding: 10,
+    padding: 5,
     elevation: 10,
     borderRadius: 20,
     backgroundColor: 'white',

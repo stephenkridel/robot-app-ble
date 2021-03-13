@@ -77,33 +77,41 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <SafeAreaView>
-        <Text style={styles.DevicesHeader}>Robot Arm Controller App</Text>
+        <Text style={styles.DevicesHeader}>Robot Arm Controller</Text>
         <Text style={styles.ConnectionText}>
           {this.state.isConnected ? 'Device is Connected' : 'Connecting...'}
         </Text>
         <MotorController
-          text={'Shoulder'}
-          lftBtnText={'CCW'}
-          rgtBtnText={'CW'}
-          onPressActuateCCW={() => this.sendData('Qw==\n')} /*Base64 for C*/
-          onPressActuateCW={() => this.sendData('Qg==\n')} /*Base64 for B*/
+          text={'Elbow'}
+          lftBtnText={'Backward'}
+          rgtBtnText={'Forward'}
+          onPressActuateLeft={() => this.sendData('Qg==\n')} /*Base64 for B*/
+          onPressActuateRight={() => this.sendData('Qw==\n')} /*Base64 for C*/
           onPressRelease={() => this.sendData('Uw==\n')} /*Base64 for S*/
         />
         <MotorController
-          text={'Elbow'}
-          lftBtnText={'CCW'}
-          rgtBtnText={'CW'}
-          onPressActuateCCW={() => this.sendData('WA==\n')} /*Base64 for Y*/
-          onPressActuateCW={() => this.sendData('WQ==\n')} /*Base64 for X*/
+          text={'Wrist'}
+          lftBtnText={'Backward'}
+          rgtBtnText={'Forward'}
+          onPressActuateLeft={() => this.sendData('WQ==\n')} /*Base64 for X*/
+          onPressActuateRight={() => this.sendData('WA==\n')} /*Base64 for Y*/
           onPressRelease={() => this.sendData('Uw==\n')} /*Base64 for S*/
         />
         <MotorController
           text={'Gripper'}
           lftBtnText={'Open'}
           rgtBtnText={'Close'}
-          onPressActuateCCW={() => this.sendData('Rw==\n')} /*Base64 for G*/
-          onPressActuateCW={() => this.sendData('Ug==\n')} /*Base64 for R*/
-          onPressRelease={() => this.sendData('SQ==\n')} /*Base64 for I*/
+          onPressActuateLeft={() => this.sendData('Rw==\n')} /*Base64 for G*/
+          onPressActuateRight={() => this.sendData('Ug==\n')} /*Base64 for R*/
+          onPressRelease={() => this.sendData('Uw==\n')} /*Base64 for S*/
+        />
+        <MotorController
+          text={'Forearm'}
+          lftBtnText={'CCW'}
+          rgtBtnText={'CW'}
+          onPressActuateLeft={() => this.sendData('Rg==\n')} /*Base64 for F*/
+          onPressActuateRight={() => this.sendData('QQ==\n')} /*Base64 for A*/
+          onPressRelease={() => this.sendData('Uw==\n')} /*Base64 for S*/
         />
       </SafeAreaView>
     );
@@ -112,7 +120,7 @@ export default class HomeScreen extends Component {
 
 const styles = StyleSheet.create({
   DevicesHeader: {
-    fontSize: 40,
+    fontSize: 30,
     textAlign: 'center',
     marginHorizontal: 30,
     marginVertical: 30,
