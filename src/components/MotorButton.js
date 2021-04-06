@@ -14,7 +14,7 @@ const MotorButton = (props) => {
 
 const styles = StyleSheet.create({
   Button: {
-    height: 50,
+    height: 40,
     width: 120,
     borderRadius: 60,
     display: 'flex',
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   ButtonText: {
-    fontSize: 20,
+    fontSize: 17.5,
     color: 'black',
   },
 });

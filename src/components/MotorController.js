@@ -26,7 +26,7 @@ const MotorController = (props) => {
 
 const styles = StyleSheet.create({
   Header: {
-    fontSize: 25,
+    fontSize: 20,
     textAlign: 'center',
     color: 'black',
   },
