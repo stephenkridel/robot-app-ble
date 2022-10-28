@@ -1,3 +1,1 @@
-module.exports = {
-  device: null,
-};
+export const device = null;

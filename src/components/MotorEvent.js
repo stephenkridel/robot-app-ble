@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, SafeAreaView, FlatList} from 'react-native';
+import {StyleSheet, SafeAreaView} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import MotorSelector from '../components/MotorSelector';
 import Icon from 'react-native-vector-icons/AntDesign';

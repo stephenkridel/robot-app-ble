@@ -1,64 +1,25 @@
-import React, {Component} from 'react';
-import {Text, SafeAreaView, StyleSheet} from 'react-native';
-import MotorController from '../components/MotorController';
-import {BleManager} from 'react-native-ble-plx';
-import GLOBAL from '../helpers/global';
+import React, {useEffect} from 'react';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import {device} from '../helpers/global';
 import MotorEvent from '../components/MotorEvent';
+import {UUID_1, UUID_2} from '../constants/technicalSpecs';
+import {STOP_MOTORS_CHAR} from '../constants/motorSignals';
 
-export default class MotorScreen extends Component {
-  constructor() {
-    super();
-    this.manager = new BleManager();
+const MotorScreen = () => {
+  useEffect(() => {
+    return () => sendData(STOP_MOTORS_CHAR);
+  }, []);
 
-    this.device;
+  const sendData = (data) => {
+    device.writeCharacteristicWithoutResponseForService(UUID_1, UUID_2, data);
+  };
 
-    this.state = {
-      isConnected: false,
-    };
-  }
-
-  componentDidMount() {
-    this.device = GLOBAL.device;
-    if (this.device) {
-      this.device
-        .connect()
-        .then((device) => {
-          this.device = device;
-          return device;
-        })
-        .then((device) => {
-          return device.discoverAllServicesAndCharacteristics();
-        })
-        .then(() => {
-          // Do work on device with services and characteristics
-          this.setState({isConnected: true});
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }
-
-  componentWillUnmount() {
-    this.sendData('Uw==\n');
-  }
-
-  sendData(data) {
-    this.device.writeCharacteristicWithoutResponseForService(
-      '0000FFE0-0000-1000-8000-00805F9B34FB',
-      '0000FFE1-0000-1000-8000-00805F9B34FB',
-      data,
-    );
-  }
-
-  render() {
-    return (
-      <SafeAreaView style={styles.Container}>
-        <MotorEvent />
-      </SafeAreaView>
-    );
-  }
-}
+  return (
+    <SafeAreaView style={styles.Container}>
+      <MotorEvent />
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   Container: {
@@ -67,3 +28,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default MotorScreen;

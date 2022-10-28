@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, StyleSheet, View, TextInput} from 'react-native';
+import {StyleSheet, View, TextInput} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 
 const MotorSelector = () => {
@@ -10,7 +10,7 @@ const MotorSelector = () => {
     <View style={styles.Controls}>
       <Picker
         selectedValue={selectedMotor}
-        onValueChange={(itemValue, itemIndex) => setSelectedMotor(itemValue)}>
+        onValueChange={(itemValue) => setSelectedMotor(itemValue)}>
         <Picker.Item label="Elbow" value="E" />
         <Picker.Item label="Shoulder" value="S" />
         <Picker.Item label="Gripper" value="G" />

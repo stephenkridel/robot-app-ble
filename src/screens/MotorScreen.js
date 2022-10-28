@@ -8,15 +8,11 @@ import {UUID_1, UUID_2} from '../constants/technicalSpecs';
 const MotorScreen = () => {
   // send the stopping character when the user leaves the screen
   useEffect(() => {
-    sendData(STOP_MOTORS_CHAR);
-  }, [null]);
+    return () => sendData(STOP_MOTORS_CHAR);
+  }, []);
 
   const sendData = (data) => {
-    this.device.writeCharacteristicWithoutResponseForService(
-      UUID_1,
-      UUID_2,
-      data,
-    );
+    device.writeCharacteristicWithoutResponseForService(UUID_1, UUID_2, data);
   };
 
   return (
