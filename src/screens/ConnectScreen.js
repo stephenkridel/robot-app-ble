@@ -1,78 +1,30 @@
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, SafeAreaView, StyleSheet} from 'react-native';
-import {BleManager} from 'react-native-ble-plx';
-import GLOBAL from '../helpers/global';
+import scanAndConnect from '../helpers/scanAndConnect';
 
-export default class HomeScreen extends Component {
-  constructor() {
-    super();
-    this.manager = new BleManager();
+// setup a global variable to store the connected device
+// to share between tabs. This is a simple way to do it
+// but could also be done through react navigation
+let GLOBAL_DEVICE;
 
-    this.state = {
-      isConnected: false,
-    };
-  }
+const HomeScreen = () => {
+  [isConnected, setIsConnected] = useState(false);
 
-  componentDidMount() {
-    const subscription = this.manager.onStateChange((state) => {
-      if (state === 'PoweredOn') {
-        this.scanAndConnect();
-        subscription.remove();
-      }
-    }, true);
-  }
-
-  componentWillUnmount() {}
-
-  scanAndConnect() {
-    console.log('Connecting...');
-    this.manager.startDeviceScan(null, null, (error, device) => {
-      if (error) {
-        console.log(error);
-        return;
-      }
-
-      // Check if it is a device you are looking for based on advertisement data
-      // or other criteria.
-      console.log(device.name);
-      console.log(device.serviceUUIDs);
-      if (device.name === 'HM-10' || device.name === 'DSD TECH') {
-        // Stop scanning as it's not necessary if you are scanning for one device.
-        this.manager.stopDeviceScan();
-        device
-          .connect()
-          .then((device) => {
-            this.state.device = device;
-            return device;
-          })
-          .then((device) => {
-            return device.discoverAllServicesAndCharacteristics();
-          })
-          .then((device) => {
-            GLOBAL.device = device;
-            // Do work on device with services and characteristics
-            console.log(`Connected to device ${device.name}`);
-            this.setState({isConnected: true});
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        // Proceed with connection.
-      }
+  useEffect(() => {
+    GLOBAL_DEVICE = scanAndConnect().then(() => {
+      this.setState({isConnected: true});
     });
-  }
+  }, []);
 
-  render() {
-    return (
-      <SafeAreaView>
-        <Text style={styles.DevicesHeader}>Robot Arm Controller</Text>
-        <Text style={styles.ConnectionText}>
-          {this.state.isConnected ? 'Device is Connected' : 'Connecting...'}
-        </Text>
-      </SafeAreaView>
-    );
-  }
-}
+  return (
+    <SafeAreaView>
+      <Text style={styles.DevicesHeader}>Robot Arm Controller</Text>
+      <Text style={styles.ConnectionText}>
+        {this.state.isConnected ? 'Device is Connected' : 'Connecting...'}
+      </Text>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   DevicesHeader: {
@@ -95,3 +47,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
+
+export default HomeScreen;
+export {GLOBAL_DEVICE};
