@@ -11,8 +11,9 @@ const HomeScreen = () => {
   [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    GLOBAL_DEVICE = scanAndConnect().then(() => {
-      this.setState({isConnected: true});
+    GLOBAL_DEVICE = scanAndConnect().then((device) => {
+      setIsConnected(true);
+      return device;
     });
   }, []);
 
