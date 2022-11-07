@@ -1,27 +1,30 @@
 import React, {useEffect, useState} from 'react';
 import {Text, SafeAreaView, StyleSheet} from 'react-native';
-import scanAndConnect from '../helpers/scanAndConnect';
+import bleConnector from '../helpers/bleConnector';
 
 // setup a global variable to store the connected device
 // to share between tabs. This is a simple way to do it
 // but could also be done through react navigation
-let GLOBAL_DEVICE;
 
 const HomeScreen = () => {
   [isConnected, setIsConnected] = useState(false);
 
-  useEffect(() => {
-    GLOBAL_DEVICE = scanAndConnect().then((device) => {
+  useEffect(() => connectToDevice(), []);
+
+  const connectToDevice = async () => {
+    try {
+      await bleConnector.connect();
       setIsConnected(true);
-      return device;
-    });
-  }, []);
+    } catch (e) {
+      console.log('Problem connecting with device', e);
+    }
+  };
 
   return (
     <SafeAreaView>
       <Text style={styles.DevicesHeader}>Robot Arm Controller</Text>
       <Text style={styles.ConnectionText}>
-        {this.state.isConnected ? 'Device is Connected' : 'Connecting...'}
+        {isConnected ? 'Device is Connected' : 'Connecting...'}
       </Text>
     </SafeAreaView>
   );

@@ -1,17 +1,19 @@
 import React, {useEffect} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import {device} from '../helpers/global';
 import MotorEvent from '../components/MotorEvent';
+
 import {UUID_1, UUID_2} from '../constants/technicalSpecs';
 import {STOP_MOTORS_CHAR} from '../constants/motorSignals';
+import bleConnector from '../helpers/bleConnector';
 
 const MotorScreen = () => {
+  // return needed for componentWillUnmount functionality
   useEffect(() => {
     return () => sendData(STOP_MOTORS_CHAR);
   }, []);
 
   const sendData = (data) => {
-    device.writeCharacteristicWithoutResponseForService(UUID_1, UUID_2, data);
+    bleConnector.writeCharacteristic(UUID_1, UUID_2, data);
   };
 
   return (

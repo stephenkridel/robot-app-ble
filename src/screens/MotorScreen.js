@@ -1,18 +1,21 @@
 import React, {useEffect} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import MotorController from '../components/MotorController';
+
 import {MOTORS} from '../constants/motors';
 import {STOP_MOTORS_CHAR} from '../constants/motorSignals';
 import {UUID_1, UUID_2} from '../constants/technicalSpecs';
+import bleConnector from '../helpers/bleConnector';
 
 const MotorScreen = () => {
   // send the stopping character when the user leaves the screen
+  // return needed for componentWillUnmount functionality
   useEffect(() => {
     return () => sendData(STOP_MOTORS_CHAR);
   }, []);
 
   const sendData = (data) => {
-    device.writeCharacteristicWithoutResponseForService(UUID_1, UUID_2, data);
+    bleConnector.writeCharacteristic(UUID_1, UUID_2, data);
   };
 
   return (
