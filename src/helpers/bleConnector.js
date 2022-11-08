@@ -25,13 +25,9 @@ const bleConnector = {
       });
     });
   },
-  writeCharacteristic() {
+  writeCharacteristic(UUID_1, UUID_2, data) {
     if (device) {
-      device.writeCharacteristicWithoutResponseForService(
-        arguments[0],
-        arguments[1],
-        arguments[2],
-      );
+      device.writeCharacteristicWithoutResponseForService(UUID_1, UUID_2, data);
     } else {
       throw new Error('Device has not been connected yet');
     }
